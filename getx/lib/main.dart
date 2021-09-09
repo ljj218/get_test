@@ -1,10 +1,10 @@
 /*
  * @Author: Long_jj
  * @Date: 2021-09-02 21:46:38
- * @LastEditTime: 2021-09-02 22:47:34
- * @LastEditors: Long_jj
+ * @LastEditTime: 2021-09-09 17:40:48
+ * @LastEditors: dragon
  * @Description: 
- * @FilePath: /getx/lib/main.dart
+ * @FilePath: \getx\lib\main.dart
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,9 +27,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class User {
+  late String name;
+  late int age;
+  User(this.name, this.age);
+}
+
 class Controller extends GetxController {
   var count = 0.obs;
   increment() => count++;
+  var list = [].obs;
+
+  @override
+  void onInit() {
+    ever(count, (e) {
+      print(e);
+    });
+    ever(list, (e) {
+      print(e);
+    });
+    super.onInit();
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -45,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.put(Controller());
-
+    print('build');
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -62,6 +80,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 '${c.count}',
                 style: Theme.of(context).textTheme.headline4,
               ),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Get.to(Other());
+              },
+              child: Text('路由切换'),
+            ),
+            //局部更新
+            GetX<Controller>(builder: (controller) {
+              return Column(
+                children: [
+                  for (var i = 0; i < controller.list.length; i++)
+                    Text(
+                        '${controller.list[i]["name"]} - ${controller.list[i]["age"]}')
+                ],
+              );
+            }),
+            OutlinedButton(
+              onPressed: () {
+                c.list.add({"name": 'lijie', "age": 333});
+              },
+              child: Text('数组变化'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -99,6 +139,25 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class Other extends StatelessWidget {
+  const Other({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Controller c = Get.find();
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('三生三世十里桃花'),
+        ),
+        body: Center(
+          child: Obx(() => Text('${c.count}')),
+        ),
+      ),
     );
   }
 }
