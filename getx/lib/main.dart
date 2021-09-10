@@ -1,7 +1,7 @@
 /*
  * @Author: Long_jj
  * @Date: 2021-09-02 21:46:38
- * @LastEditTime: 2021-09-09 17:40:48
+ * @LastEditTime: 2021-09-10 14:29:05
  * @LastEditors: dragon
  * @Description: 
  * @FilePath: \getx\lib\main.dart
@@ -44,7 +44,7 @@ class Controller extends GetxController {
       print(e);
     });
     ever(list, (e) {
-      print(e);
+      // print(e);
     });
     super.onInit();
   }
@@ -60,6 +60,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int num = 0;
   @override
   Widget build(BuildContext context) {
     final Controller c = Get.put(Controller());
@@ -99,7 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
             }),
             OutlinedButton(
               onPressed: () {
-                c.list.add({"name": 'lijie', "age": 333});
+                c.list.add({"name": 'lijie', "age": num++});
+              },
+              child: Text('数组变化'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                var s = c.list.removeAt(3);
+                print(s);
               },
               child: Text('数组变化'),
             ),
