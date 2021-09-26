@@ -1,13 +1,14 @@
 /*
  * @Author: Long_jj
  * @Date: 2021-09-02 21:46:38
- * @LastEditTime: 2021-09-10 14:29:05
+ * @LastEditTime: 2021-09-26 16:09:39
  * @LastEditors: dragon
  * @Description: 
  * @FilePath: \getx\lib\main.dart
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'Other.dart';
 
 void main() {
   runApp(MyApp());
@@ -147,25 +148,6 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class Other extends StatelessWidget {
-  const Other({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final Controller c = Get.find();
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('三生三世十里桃花'),
-        ),
-        body: Center(
-          child: Obx(() => Text('${c.count}')),
-        ),
-      ),
     );
   }
 }
